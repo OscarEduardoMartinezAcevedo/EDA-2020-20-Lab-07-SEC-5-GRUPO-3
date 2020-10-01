@@ -23,6 +23,9 @@
 import sys
 import config
 from DISClib.ADT import list as lt
+from DISClib.DataStructures import arraylistiterator as it
+from DISClib.ADT import orderedmap as om
+from DISClib.ADT import map as m
 from App import controller
 assert config
 
@@ -38,7 +41,7 @@ operación seleccionada.
 # ___________________________________________________
 
 
-crimefile = 'crime-utf8.csv'
+crimefile = "us_accidents_small.csv"
 
 # ___________________________________________________
 #  Menu principal
@@ -66,18 +69,23 @@ while True:
 
     if int(inputs[0]) == 1:
         print("\nInicializando....")
-        # cont es el controlador que se usará de acá en adelante
-        cont = controller.init()
+        # analyzer es el controlador que se usará de acá en adelante
+        analyzer = controller.init()
+        print("\nAnalizador cargado.")
 
     elif int(inputs[0]) == 2:
         print("\nCargando información de crimenes ....")
+        controller.loadData(analyzer, crimefile)
+        print("\nInformacion caragada exitosamente")
+        print("Se cargaron",m.size(analyzer["crimenes"]),"elementos.")
+
 
     elif int(inputs[0]) == 3:
-        print("\nBuscando crimenes en un rango de fechas: ")
-
+        criterio = input(str("\nBuscando accidentes en un rango de fechas: "))
+        Monika = controller.obtener_crimenes_por_fecha(analyzer, criterio)
 
     elif int(inputs[0]) == 4:
-        print("\nRequerimiento No 1 del reto 3: ")
+        print("\nProximamente... ")
 
     else:
         sys.exit(0)
